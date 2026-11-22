@@ -11,8 +11,7 @@ default_path = ROOT / "dist" / f"NexaFlow-AI-Switch-{manifest['version']}.mcpb"
 path = Path(sys.argv[1]) if len(sys.argv) > 1 else default_path
 required = {"manifest.json", "icon.png", "server/index.js", "README.md"}
 with zipfile.ZipFile(path) as archive:
-    names = set(archive.namelist())
-    missing = required - names
+    missing = required - set(archive.namelist())
     if missing:
         raise SystemExit(f"Missing archive entries: {sorted(missing)}")
     bad = archive.testzip()
