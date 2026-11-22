@@ -39,6 +39,8 @@ test('MCP server starts and speaks JSON-RPC', async () => {
 
 test('manifest JSON and MCPB entry point are valid', () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
+  assert.equal(manifest.manifest_version, '0.3');
+  assert.equal(Object.hasOwn(manifest, 'mcpb_version'), false);
   assert.equal(manifest.server.entry_point, 'server/index.js');
   assert.equal(manifest.version, JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version);
   assert.equal(manifest.server.type, 'node');
