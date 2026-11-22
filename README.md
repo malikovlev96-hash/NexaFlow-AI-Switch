@@ -64,8 +64,8 @@ Go to **[GitHub Releases](https://github.com/malikovlev96-hash/NexaFlow-AI-Switc
 
 | File | Use it for |
 |---|---|
-| `NexaFlow-AI-Switch-1.7.0.mcpb` | Install the Claude Desktop MCP extension |
-| `NexaFlow-AI-Switch-1.7.0-source.zip` | Windows launcher, PWA files, source code and documentation |
+| `NexaFlow-AI-Switch-1.7.1.mcpb` | Install the Claude Desktop MCP extension |
+| `NexaFlow-AI-Switch-1.7.1-source.zip` | Windows launcher, PWA files, source code and documentation |
 
 If the Releases page says that no release is published yet, use **Code → Download ZIP** for the source snapshot. The versioned release files appear after a maintainer publishes a version tag and the release workflow finishes.
 
@@ -123,7 +123,7 @@ Requirements: Node.js 18+ and Python 3.
 npm test
 npm run check
 python tools/build_mcpb.py
-python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.0.mcpb
+python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.1.mcpb
 ```
 
 ## Documentation
