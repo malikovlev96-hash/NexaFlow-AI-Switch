@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a reproducible problem without sharing secrets.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Never paste API keys, access tokens, passwords, personal data or unredacted logs.
+  - type: input
+    id: version
+    attributes:
+      label: NexaFlow version
+      placeholder: "1.7.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - Claude Desktop MCP extension
+        - Windows launcher
+        - Web companion / PWA
+        - Build / installation
+        - Documentation
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Windows 11, Claude Desktop version, Node.js version"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact steps that lead to the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and sanitized logs
+      description: Replace every secret with [REDACTED].
+    validations:
+      required: true
