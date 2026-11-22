@@ -1,8 +1,7 @@
 {
-  "mcpb_version": "0.1",
   "name": "nexaflow-ai-switch",
   "display_name": "NexaFlow AI Switch Pro",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "NexaFlow AI Switch — MCP router with explicit failover, provider diagnostics and live OpenRouter model catalog.",
   "long_description": "NexaFlow AI Switch is a local Claude Desktop MCP extension. It routes only requests explicitly sent to autoswitch_ask; it does not intercept or replace Claude Desktop internal model selection or subscription limits. The extension supports 18 configured provider integrations, but live access depends on valid user-supplied credentials, model availability, region and provider account terms. The OpenRouter model catalogue is live and includes listed input/output token prices; it is not a universal catalogue for all providers. API keys are configured in Claude Desktop extension settings and are never returned by tools.",
   "author": {
@@ -343,5 +342,6 @@
       "node": ">=18.0.0"
     }
   },
-  "icon": "icon.png"
+  "icon": "icon.png",
+  "manifest_version": "0.3"
 }
