@@ -26,6 +26,22 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Resolve and validate release version
+        id: version
+        shell: bash
+        run: |
+          SOURCE_VERSION="$(node -p "require('./package.json').version")"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            RELEASE_VERSION="${GITHUB_REF_NAME#v}"
+          else
+            RELEASE_VERSION="$SOURCE_VERSION"
+          fi
+          if [[ "$RELEASE_VERSION" != "$SOURCE_VERSION" ]]; then
+            echo "Tag version $RELEASE_VERSION does not match package.json $SOURCE_VERSION"
+            exit 1
+          fi
+          echo "version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Run tests
         run: npm test
 
@@ -36,17 +52,17 @@ jobs:
         run: python tools/build_mcpb.py
 
       - name: Verify MCPB archive
-        run: python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.0.mcpb
+        run: python tools/verify_mcpb.py "dist/NexaFlow-AI-Switch-${{ steps.version.outputs.version }}.mcpb"
 
       - name: Create source download
         run: |
-          git archive --format=zip --output=dist/NexaFlow-AI-Switch-1.7.0-source.zip HEAD
+          git archive --format=zip --output="dist/NexaFlow-AI-Switch-${{ steps.version.outputs.version }}-source.zip" HEAD
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: NexaFlow AI Switch 1.7.0
+          name: NexaFlow AI Switch ${{ steps.version.outputs.version }}
           files: |
-            dist/NexaFlow-AI-Switch-1.7.0.mcpb
-            dist/NexaFlow-AI-Switch-1.7.0-source.zip
+            dist/NexaFlow-AI-Switch-${{ steps.version.outputs.version }}.mcpb
+            dist/NexaFlow-AI-Switch-${{ steps.version.outputs.version }}-source.zip
           generate_release_notes: true

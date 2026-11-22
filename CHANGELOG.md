@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1 — 2026-11-22
+
+- Premium visual refresh for the mobile PWA while preserving its existing JavaScript behavior and element IDs.
+- Reworked the GitHub landing pages in English and Russian, clarified the two-component architecture and documented current limitations.
+- Updated Windows, Claude Desktop and PWA installation/download guides; added community issue and pull request templates.
+- Made MCPB build and release asset names derive from the manifest version, with release-tag/version validation in GitHub Actions.
+
+
 ## 1.7.0 — 2026-11-22
 
 - Added complete tracked MCP server source and reproducible MCPB build scripts.

@@ -1,6 +1,6 @@
 {
   "name": "nexaflow-ai-switch",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "private": true,
   "description": "Claude Desktop MCP extension and OpenRouter PWA companion",
   "scripts": {
