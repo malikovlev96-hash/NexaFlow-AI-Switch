@@ -1,61 +1,86 @@
-# 📦 NexaFlow AI Switch installation (Windows)
+# Install NexaFlow AI Switch on Windows
 
-This guide is for `NexaFlow-Desktop-Mobile-1.0.0.zip`.
+This guide matches the current repository layout. Download files from [GitHub Releases](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/releases/latest), not the old 1.0.0 archive in the repository history.
 
-## 1. Download and extract
+## What to download
 
-1. Open the [NexaFlow repository](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch).
-2. Download `NexaFlow-Desktop-Mobile-1.0.0.zip`.
-3. In Windows File Explorer, right-click the ZIP and choose **Extract All…**.
-4. Open the extracted `nexaflow_bundle` folder.
+From the latest published release, download:
 
-You should see `START-NEXAFLOW.cmd`, `NexaFlow-AI-Switch-Pro-1.6.0.mcpb`, `mobile/`, and `assets/`.
+- `NexaFlow-AI-Switch-1.7.0-source.zip` — launcher, PWA, source and documentation.
+- `NexaFlow-AI-Switch-1.7.0.mcpb` — Claude Desktop extension package.
 
-**Keep these files and folders together. Do not move the CMD launcher on its own.**
+If no release is published yet, use **Code → Download ZIP** on the repository page. You can build the MCPB from source with `BUILD-MCPB.cmd`.
+
+## 1. Extract the project
+
+1. Find the ZIP in your Downloads folder.
+2. Right-click it and select **Extract All…**.
+3. Open the extracted folder.
+4. Keep `START-NEXAFLOW.cmd`, `desktop/`, `mobile/`, `assets/` and `server/` together.
 
 ## 2. Run the web companion on Windows
 
-1. Install Python 3 for Windows if it is not already installed: [python.org/downloads](https://www.python.org/downloads/).
+1. Install Python 3 from [python.org/downloads](https://www.python.org/downloads/). Enable **Add Python to PATH** if the installer offers it.
 2. Double-click `START-NEXAFLOW.cmd`.
 3. Enter `1` and press Enter.
-4. Your browser should open `http://127.0.0.1:8765/`.
+4. Wait for the readiness check. Your browser opens `http://127.0.0.1:8765/`.
+5. To stop the local server, open the launcher again and choose `2`.
 
-Keep the extracted folder in place while using the local app.
+Choose option `4` to diagnose Python and port 8765.
 
-## 3. Install the Claude Desktop extension
+## 3. Install the Claude Desktop MCP extension
 
-1. Install and open Claude Desktop.
-2. Run `START-NEXAFLOW.cmd` from the extracted `nexaflow_bundle` folder.
-3. Choose option `2`. The launcher opens `NexaFlow-AI-Switch-Pro-1.6.0.mcpb`.
-4. Confirm the installation in Claude Desktop if prompted.
-5. Check the extension in Claude Desktop settings and configure the provider API key.
+**Option A — prebuilt package**
 
-If opening the `.mcpb` file does not launch the installer, use the extension installation screen available in your Claude Desktop version and select the `.mcpb` file manually. UI labels may vary by version.
+1. Download `NexaFlow-AI-Switch-1.7.0.mcpb` from Releases.
+2. Open Claude Desktop. If double-clicking the file does not open the installer, use the extension installation screen available in your Claude Desktop version.
+3. Select the `.mcpb` file and confirm installation.
+4. Open extension settings and add an API key for at least one provider.
+5. Restart Claude Desktop if prompted.
 
-## 4. Android and iPhone
+**Option B — build it yourself**
 
-The included mobile app is a PWA, not a native APK or IPA.
+1. Install Python 3.
+2. Double-click `BUILD-MCPB.cmd` in the extracted project folder.
+3. After successful verification, the package is created at `dist/NexaFlow-AI-Switch-1.7.0.mcpb`.
+4. Open that file with Claude Desktop and confirm installation.
 
-1. Publish the contents of `nexaflow_bundle` to an HTTPS static host.
-2. Preserve the relative `mobile/` and `assets/` paths.
-3. Open the hosted mobile page on your phone.
-4. Android: Chrome menu → **Install app** / **Add to Home screen**.
-5. iPhone: Safari Share → **Add to Home Screen**.
+## 4. Configure a provider
 
-## 5. API key safety
+NexaFlow does not issue API keys or include paid model access. Create a key with your chosen provider and paste it into the matching sensitive field in Claude Desktop extension settings.
 
-- Never publish or share API keys.
-- The mobile PWA stores its OpenRouter key in browser `localStorage`. Use a trusted personal device only.
-- The mobile PWA does not sync credentials with Claude Desktop.
-- Provider pricing, quotas, and model access are controlled by the provider.
+Start with one provider and test it using `autoswitch_test_provider`. Model access, free quotas, regional availability and pricing are controlled by the provider and your account.
 
-## 6. Troubleshooting
+See [provider setup](docs/PROVIDERS-RU.md) for official links.
+
+## 5. Install the PWA on a phone
+
+The mobile companion is an installable website, **not a native APK or IPA**.
+
+1. Host the project root over HTTPS, preserving the `mobile/` and `assets/` folders.
+2. Open the hosted URL ending in `/mobile/`.
+3. **Android:** Chrome menu → **Install app** / **Add to Home screen**.
+4. **iPhone:** Safari Share → **Add to Home Screen**.
+
+The PWA uses OpenRouter only. It does not connect to the Claude Desktop MCP process or sync keys/history with it.
+
+## Security
+
+- Never publish API keys in GitHub, screenshots or bug reports.
+- Do not use the PWA on shared/public devices.
+- The PWA stores its key in browser `sessionStorage` for the current session; history and favorites remain in local browser storage.
+- Providers may charge for API requests. Monitor your own usage and limits.
+
+## Troubleshooting
 
 | Problem | What to check |
 |---|---|
-| `Python not found` | Install Python 3 and enable the PATH option. |
-| `127.0.0.1:8765` unavailable | Make sure the launcher and local server are still running. |
-| `401 Unauthorized` | Verify the key, provider, API access, and authentication format. |
-| `Model not found` | Check the exact model ID in provider documentation. |
+| Python not found | Install Python 3 and enable PATH integration. |
+| 127.0.0.1 page unavailable | Run launcher option 4 and check whether port 8765 is free. |
+| 401 | Verify the API key and selected provider. |
+| 403 | Check key permissions, plan, region and model access. |
+| 404 / Model not found | Verify the exact model ID in the provider dashboard. |
+| 429 | Check rate limits/quota and retry later. |
+| MCPB will not open | Install it from the extension screen available in your Claude Desktop version. |
 
-Never include API keys in bug reports. Replace secrets with `[REDACTED]`.
+When asking for help, include the NexaFlow version, Windows/Claude Desktop version and error text. Replace all secrets with `[REDACTED]`.
