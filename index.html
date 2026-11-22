@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080811">
+  <meta name="description" content="NexaFlow AI Switch — единый удобный способ подключить AI-модели к Claude Desktop и работать с каталогом OpenRouter.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NexaFlow AI Switch — Your AI, in flow">
+  <meta property="og:description" content="Переключайте AI-модели, управляйте запросами и подключайте OpenRouter к Claude Desktop.">
+  <meta property="og:image" content="assets/nexaflow-banner.svg">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <title>NexaFlow AI Switch — Your AI, in flow</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080811;--panel:#11111d;--panel2:#171625;--line:#ffffff14;--text:#f7f5ff;--muted:#a09cb7;--purple:#a78bfa;--blue:#75d9f5;--green:#79e2bb;--max:1180px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 'DM Sans',system-ui,sans-serif;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% -20%,#48307855,transparent 45%),radial-gradient(ellipse at 95% 45%,#173b5550,transparent 32%),linear-gradient(180deg,#090812,#080811 55%)}
+    a{color:inherit;text-decoration:none}button,a{ -webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+    .shell{width:min(var(--max),calc(100% - 48px));margin:auto}.nav-wrap{position:sticky;top:0;z-index:20;border-bottom:1px solid #ffffff0d;background:#090812d9;backdrop-filter:blur(18px)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.08em}.brand img{width:38px;height:38px;border-radius:12px;box-shadow:0 0 26px #9a7cff45}.brand span{color:var(--blue)}
+    .navlinks{display:flex;align-items:center;gap:29px;color:#c1bdd2;font-size:13px}.navlinks a:hover{color:white}.navcta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:13px;padding:12px 18px;font-weight:700;font-size:13px;transition:transform .2s,border-color .2s,filter .2s}.navcta,.button.primary{background:linear-gradient(110deg,#b5a0ff,#79d9f5);color:#100e1b;box-shadow:0 8px 30px #9d83ff25}.navcta:hover,.button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+    .menu{display:none;background:#ffffff0a;border:1px solid var(--line);color:white;border-radius:10px;padding:9px 12px}
+    .hero{padding:92px 0 74px;position:relative}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:54px}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#c3b3ff;font-size:11px;font-weight:700;letter-spacing:.19em;text-transform:uppercase}.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 15px var(--green)}
+    h1,h2,h3,p{margin-top:0}h1{font:700 clamp(46px,6.2vw,76px)/1.02 'Space Grotesk',sans-serif;letter-spacing:-.065em;margin:20px 0}.gradient{background:linear-gradient(100deg,#c5b4ff 10%,#8ddcf5 90%);-webkit-background-clip:text;background-clip:text;color:transparent}.lead{max-width:590px;color:#b9b5ca;font-size:17px;line-height:1.8}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:29px 0 21px}.button.secondary{border:1px solid #ffffff24;background:#ffffff08;color:#f0edff}.micro{color:#817d94;font-size:11px}
+    .visual{position:relative;min-height:440px;display:grid;place-items:center}.orb{position:absolute;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,#9b7cff25,transparent 68%);filter:blur(12px)}.dashboard{position:relative;width:min(100%,480px);border:1px solid #ffffff20;border-radius:24px;padding:18px;background:linear-gradient(145deg,#1c1a2bf2,#10111df2);box-shadow:0 35px 100px #0009,0 0 65px #8f75ff14;transform:perspective(1000px) rotateY(-7deg) rotateX(3deg)}
+    .dash-top{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 15px;border-bottom:1px solid var(--line)}.dash-brand{font:700 11px 'Space Grotesk';letter-spacing:.12em}.live{font-size:9px;color:var(--green);border:1px solid #79e2bb45;background:#79e2bb10;border-radius:30px;padding:5px 9px;letter-spacing:.1em}
+    .dash-label{color:#8e8aa4;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin:17px 0 9px}.model{display:flex;align-items:center;justify-content:space-between;padding:12px;border:1px solid #ffffff12;border-radius:13px;background:#ffffff05;margin-top:8px}.model-left{display:flex;align-items:center;gap:10px}.model-icon{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#9d82ff35,#6ed9f52b);color:#d5caff;font-weight:700}.model strong{font-size:11px;display:block}.model small{font-size:9px;color:#8f8ba5}.check{color:var(--green);font-size:12px}.chat{margin-top:15px;border:1px solid #ffffff12;border-radius:14px;padding:13px;background:#0b0b15}.chat small{font-size:9px;color:#9e98b8}.chat p{font-size:11px;color:#e2dff1;margin:7px 0 0;line-height:1.7}.typing{display:inline-block;width:5px;height:13px;vertical-align:-2px;margin-left:3px;background:var(--blue);border-radius:3px;animation:blink 1s infinite}@keyframes blink{50%{opacity:.2}}
+    .float{position:absolute;padding:11px 14px;border:1px solid #ffffff1c;background:#151426eF;backdrop-filter:blur(12px);border-radius:13px;box-shadow:0 12px 35px #0006;font-size:10px;color:#d9d4ee}.float.one{top:44px;right:-4px}.float.two{bottom:43px;left:-12px}.float b{color:var(--green)}
+    .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}.trust-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:#8d89a2;font-size:11px}.trust strong{color:#d8d3eb;font-weight:600}
+    section.block{padding:92px 0}.section-head{max-width:680px;margin-bottom:34px}.kicker{color:#b9a8ff;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}.section-head h2{font:700 clamp(32px,4.4vw,48px)/1.1 'Space Grotesk';letter-spacing:-.045em;margin:12px 0}.section-head p{color:var(--muted);font-size:15px}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{padding:25px;border:1px solid var(--line);border-radius:19px;background:linear-gradient(150deg,#171625c9,#10101bba);min-height:190px;transition:transform .2s,border-color .2s}.feature:hover{transform:translateY(-4px);border-color:#a78bfa55}.feature-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:#a78bfa18;color:#c8b8ff;font-size:18px;margin-bottom:18px}.feature h3{font:600 16px 'Space Grotesk';margin-bottom:8px}.feature p{font-size:13px;color:#a39fb5;margin:0}
+    .split-section{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}.panel{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#171625,#10101a);padding:27px}.step{display:flex;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}.step:last-child{border:0}.num{width:29px;height:29px;flex:0 0 29px;border-radius:9px;background:#a78bfa20;color:#c8b8ff;display:grid;place-items:center;font-size:11px;font-weight:700}.step strong{display:block;font-size:13px;margin-bottom:4px}.step p{font-size:12px;color:#a39fb5;margin:0}.code-line{padding:14px;border:1px solid #ffffff12;border-radius:12px;background:#090912;color:#b8e9f6;font:11px ui-monospace,monospace;overflow-wrap:anywhere;margin-top:17px}
+    .platforms{display:grid;grid-template-columns:1fr 1fr;gap:16px}.platform{padding:26px;border-radius:20px;border:1px solid var(--line);background:#13121f}.platform .label{color:#b7a5ff;font-size:10px;font-weight:700;letter-spacing:.16em}.platform h3{font:600 20px 'Space Grotesk';margin:10px 0}.platform p{color:#a5a0b7;font-size:13px;min-height:64px}.platform a{color:#bcaaff;font-size:12px;font-weight:700}.notice{border:1px solid #a78bfa35;background:#a78bfa0c;padding:16px 18px;border-radius:14px;color:#c2bdd3;font-size:12px;margin-top:18px}
+    .cta{padding:52px;border:1px solid #b49cff35;border-radius:25px;background:radial-gradient(ellipse at 80% 10%,#5c4b9c42,transparent 45%),linear-gradient(110deg,#1b1930,#121a27);text-align:center;box-shadow:0 25px 70px #0005}.cta h2{font:700 clamp(30px,4vw,44px)/1.1 'Space Grotesk';letter-spacing:-.04em;margin:0 0 12px}.cta p{color:#b6b1c7;margin:0 auto 23px;max-width:550px;font-size:14px}
+    footer{border-top:1px solid var(--line);padding:28px 0 35px;color:#79758c;font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:18px;flex-wrap:wrap}.footer-links a:hover{color:white}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:24px}.hero{padding:68px 0 50px}.visual{min-height:390px}.dashboard{transform:none}.features{grid-template-columns:repeat(2,1fr)}.split-section{gap:28px}}
+    @media(max-width:640px){.shell{width:min(100% - 32px,var(--max))}nav{height:66px}.navlinks{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 22px 22px;background:#0d0c18;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:17px}.navlinks.open{display:flex}.navcta{display:none}.menu{display:block}.brand{font-size:13px}.brand img{width:34px;height:34px}.hero{padding:57px 0 35px}h1{font-size:clamp(43px,13vw,61px)}.lead{font-size:15px}.hero-actions{display:grid;grid-template-columns:1fr}.button{width:100%}.visual{min-height:330px}.dashboard{padding:13px;border-radius:18px}.float.one{right:-2px;top:9px}.float.two{left:-3px;bottom:8px}.orb{width:290px;height:290px}.trust-inner{justify-content:center;text-align:center}.trust-inner span{width:100%}section.block{padding:66px 0}.features,.platforms,.split-section{grid-template-columns:1fr}.feature{min-height:0}.panel{padding:20px}.cta{padding:34px 20px}.footer-inner{flex-direction:column}.section-head h2{font-size:35px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="nav-wrap"><nav class="shell" aria-label="Главная навигация">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt=""><span style="color:#f7f5ff">NEXAFLOW</span><span>AI SWITCH</span></a>
+    <div class="navlinks" id="navlinks"><a href="#features">Возможности</a><a href="#how">Как начать</a><a href="#platforms">Платформы</a><a href="README-RU.md">Документация</a></div>
+    <a class="navcta" href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/releases/latest">Скачать <span>↗</span></a>
+    <button class="menu" id="menu" aria-label="Открыть меню" aria-expanded="false">☰</button>
+  </nav></div>
+  <main id="top">
+    <div class="hero shell"><div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> AI MODEL CONTROL · OPENROUTER</div>
+        <h1>Твой AI.<br><span class="gradient">Твой поток.</span></h1>
+        <p class="lead">Переключай модели, управляй AI-запросами и подключай возможности OpenRouter к Claude Desktop — без лишней сложности.</p>
+        <div class="hero-actions"><a class="button primary" href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/releases/latest">↓ Скачать NexaFlow</a><a class="button secondary" href="mobile/">Открыть мобильный companion ↗</a></div>
+        <div class="micro">Открытый исходный код · Для Claude Desktop и мобильного браузера</div>
+      </div>
+      <div class="visual" aria-label="Иллюстрация интерфейса NexaFlow">
+        <div class="orb"></div>
+        <div class="float one">MODEL ROUTING <b>● READY</b></div>
+        <div class="dashboard">
+          <div class="dash-top"><div class="dash-brand">NEXAFLOW <span style="color:var(--blue)">AI SWITCH</span></div><span class="live">● WORKSPACE</span></div>
+          <div class="dash-label">Choose your model</div>
+          <div class="model"><div class="model-left"><div class="model-icon">✦</div><div><strong>Claude family</strong><small>Anthropic · via provider</small></div></div><span class="check">↗</span></div>
+          <div class="model"><div class="model-left"><div class="model-icon">◈</div><div><strong>GPT family</strong><small>OpenAI · via provider</small></div></div><span class="check">↗</span></div>
+          <div class="model"><div class="model-left"><div class="model-icon">⌘</div><div><strong>Open models</strong><small>Explore OpenRouter catalog</small></div></div><span class="check">↗</span></div>
+          <div class="dash-label">Your conversation</div>
+          <div class="chat"><small>YOU · NOW</small><p>Help me choose the right model for this task.</p><div style="height:1px;background:#ffffff12;margin:11px 0"></div><small>NEXAFLOW · ASSISTANT</small><p>Let's compare the available models and route your request.<span class="typing"></span></p></div>
+        </div>
+        <div class="float two">ONE WORKFLOW <b>✦</b> MANY MODELS</div>
+      </div>
+    </div></div>
+    <div class="trust"><div class="shell trust-inner"><span>BUILT FOR <strong>CLAUDE DESKTOP</strong></span><span>MODEL CATALOG <strong>OPENROUTER</strong></span><span>INTERFACE <strong>DESKTOP + MOBILE</strong></span><span>PROJECT <strong>OPEN SOURCE</strong></span></div></div>
+    <section class="block shell" id="features"><div class="section-head"><div class="kicker">Designed to stay in flow</div><h2>Всё нужное для работы с AI.<br><span class="gradient">Ничего лишнего.</span></h2><p>NexaFlow объединяет удобный доступ к моделям и инструменты управления запросами в одном понятном рабочем процессе.</p></div>
+      <div class="features">
+        <article class="feature"><div class="feature-icon">◈</div><h3>Каталог моделей</h3><p>Загружай актуальные модели OpenRouter и находи нужную по названию или ID.</p></article>
+        <article class="feature"><div class="feature-icon">⇄</div><h3>Гибкий выбор</h3><p>Выбирай подходящую модель для задачи и меняй её без перестройки рабочего процесса.</p></article>
+        <article class="feature"><div class="feature-icon">⌁</div><h3>Потоковые ответы</h3><p>Получай ответ по мере генерации, а не жди завершения всего запроса.</p></article>
+        <article class="feature"><div class="feature-icon">☆</div><h3>Избранное и история</h3><p>Сохраняй любимые модели и возвращайся к прошлым запросам на устройстве.</p></article>
+        <article class="feature"><div class="feature-icon">⚙</div><h3>Понятная настройка</h3><p>Проверь API-ключ и получай объяснения типичных ошибок подключения.</p></article>
+        <article class="feature"><div class="feature-icon">▣</div><h3>Мобильный companion</h3><p>Открывай отдельный мобильный интерфейс с каталогом, чатом и локальной историей.</p></article>
+      </div>
+    </section>
+    <section class="block shell" id="how"><div class="split-section">
+      <div><div class="section-head"><div class="kicker">Start in minutes</div><h2>Начать просто.<br><span class="gradient">Работать удобно.</span></h2><p>Установка Claude Desktop-расширения не требует ручного редактирования конфигурации. Следуй короткой инструкции и подключи свой провайдер.</p></div><a class="button primary" href="INSTALLATION-RU.md">Открыть инструкцию ↗</a></div>
+      <div class="panel">
+        <div class="step"><span class="num">01</span><div><strong>Скачай расширение</strong><p>Открой страницу релизов и загрузи файл .mcpb.</p></div></div>
+        <div class="step"><span class="num">02</span><div><strong>Установи в Claude Desktop</strong><p>Открой скачанный файл и подтверди установку расширения.</p></div></div>
+        <div class="step"><span class="num">03</span><div><strong>Добавь API-ключ</strong><p>Используй ключ своего провайдера и следуй подсказкам настройки.</p></div></div>
+        <div class="step"><span class="num">04</span><div><strong>Выбери модель и работай</strong><p>Проверь доступные инструменты NexaFlow в Claude Desktop.</p></div></div>
+        <div class="code-line">Claude Desktop → Settings → Extensions → NexaFlow AI Switch</div>
+      </div>
+    </div></section>
+    <section class="block shell" id="platforms"><div class="section-head"><div class="kicker">Choose your workspace</div><h2>Один проект.<br><span class="gradient">Два сценария.</span></h2><p>Выбери интерфейс под своё устройство. Это отдельные клиенты с разными возможностями.</p></div>
+      <div class="platforms">
+        <article class="platform"><div class="label">DESKTOP · MCPB</div><h3>Claude Desktop Extension</h3><p>Подключение NexaFlow как MCP-расширения Claude Desktop. Установка через пакет .mcpb и работа с доступными инструментами.</p><a href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/releases/latest">Скачать для Claude Desktop ↗</a></article>
+        <article class="platform"><div class="label">MOBILE · PWA</div><h3>Mobile Companion</h3><p>Отдельный мобильный интерфейс: каталог OpenRouter, чат с потоковыми ответами, избранное и локальная история.</p><a href="mobile/">Открыть мобильное приложение ↗</a></article>
+      </div>
+      <div class="notice">Важно: мобильный companion работает отдельно, использует OpenRouter и не синхронизирует API-ключи или историю с Claude Desktop.</div>
+    </section>
+    <section class="block shell"><div class="cta"><div class="kicker">Ready when you are</div><h2>Пусть AI работает <span class="gradient">в твоём потоке.</span></h2><p>Скачай NexaFlow AI Switch, изучи исходный код или открой мобильный companion.</p><div class="hero-actions" style="justify-content:center;margin-bottom:0"><a class="button primary" href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/releases/latest">Скачать релиз ↗</a><a class="button secondary" href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch">GitHub проекта ↗</a></div></div></section>
+  </main>
+  <footer><div class="shell footer-inner"><div>© <span id="year"></span> NexaFlow AI Switch · Open-source project</div><div class="footer-links"><a href="README-RU.md">Документация</a><a href="INSTALLATION-RU.md">Установка</a><a href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues">Поддержка</a><a href="https://github.com/malikovlev96-hash/NexaFlow-AI-Switch">GitHub</a></div></div></footer>
+  <script>
+    const menu=document.getElementById('menu'),links=document.getElementById('navlinks');
+    menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'✕':'☰'});
+    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰'}));
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
