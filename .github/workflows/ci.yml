@@ -21,6 +21,8 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('mobile/manifest.webmanifest','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('package.json','utf8'))"
+      - name: Validate MCPB manifest with official Anthropic CLI
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
       - name: Run tests
         run: npm test
       - name: Build MCPB
