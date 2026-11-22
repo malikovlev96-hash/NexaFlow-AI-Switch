@@ -29,3 +29,10 @@ jobs:
         run: python3 tools/build_mcpb.py
       - name: Verify archive
         run: python3 tools/verify_mcpb.py
+      - name: Upload test MCPB package
+        uses: actions/upload-artifact@v4
+        with:
+          name: NexaFlow-AI-Switch-1.7.2-test
+          path: dist/NexaFlow-AI-Switch-1.7.2.mcpb
+          if-no-files-found: error
+          retention-days: 7
