@@ -1,81 +1,97 @@
 <div align="center">
 
-# NexaFlow AI Switch
+# ⚡ NexaFlow AI Switch
 
-### One interface. Multiple AI providers. Smarter model routing.
+### Your AI providers. One smart routing workspace.
 
-**A configurable AI routing project for connecting model providers, choosing models, and handling fallback workflows.**
+Configure models, connect supported providers, and use fallback workflows through a desktop bundle and mobile companion app.
 
-[Repository](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch) · [Issues](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues) · [Security](SECURITY.md)
+[🚀 Get the desktop bundle](NexaFlow-Desktop-Mobile-1.0.0.zip) · [📘 Russian guide](INSTALLATION-RU.md) · [📗 English guide](INSTALLATION.md) · [🐛 Report a bug](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues)
 
-![Repo size](https://img.shields.io/github/repo-size/malikovlev96-hash/NexaFlow-AI-Switch?style=flat-square) ![Last commit](https://img.shields.io/github/last-commit/malikovlev96-hash/NexaFlow-AI-Switch?style=flat-square) ![Issues](https://img.shields.io/github/issues/malikovlev96-hash/NexaFlow-AI-Switch?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge&color=6C5CE7) ![GitHub last commit](https://img.shields.io/github/last-commit/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge) ![GitHub issues](https://img.shields.io/github/issues/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge)
 
 </div>
 
 ---
 
-## Overview
+## ✨ What is NexaFlow?
 
-NexaFlow AI Switch is a project for routing requests across configurable AI model providers. Its goal is to make provider configuration, model selection, and fallback workflows easier to manage from one place.
+NexaFlow AI Switch is a configurable AI routing project. It brings provider setup, model selection, and supported fallback workflows into a single project bundle.
 
-The project is oriented toward desktop workflows, MCP-compatible clients such as Claude Desktop, and a mobile-friendly web experience. Exact provider support depends on the adapter and build being used.
+| Component | What it is for |
+|---|---|
+| **Windows launcher** | Opens the web companion, the Claude Desktop extension installer, and local checks. |
+| **Claude Desktop MCPB** | Installs the bundled MCP extension in Claude Desktop. |
+| **Mobile PWA** | Browser-based companion for the OpenRouter model catalog and chat. |
 
-## Project goals
+## 🚀 Install in 3 steps
 
-- **Multiple providers** — configure different AI API services.
-- **Model selection** — choose a model that fits the task, budget, and availability.
-- **Fallback workflows** — try another configured provider when a request fails, where supported.
-- **Desktop integration** — provide a convenient Windows setup and launch experience.
-- **MCP integration** — expose supported functionality to MCP-compatible clients.
-- **Mobile access** — offer a responsive web interface for supported workflows.
+1. **[Download the ZIP](NexaFlow-Desktop-Mobile-1.0.0.zip)** from this repository.
+2. Extract the complete ZIP archive. Do not run files from inside the ZIP preview.
+3. Open the extracted `nexaflow_bundle` folder and double-click `START-NEXAFLOW.cmd`.
 
-> **Important:** NexaFlow does not secretly replace the model running inside Claude or another AI client. Routing and fallback apply only to requests actually sent through NexaFlow. Provider quotas, pricing, model availability, and rate limits are controlled by each provider and can change.
+Choose an action in the launcher:
 
-## Getting started
+| Menu | Action |
+|---|---|
+| `1` | Starts the local mobile/desktop web interface. Requires Python 3 for the local web server. |
+| `2` | Opens `NexaFlow-AI-Switch-Pro-1.6.0.mcpb` to install the Claude Desktop extension. |
+| `3` | Opens the mobile installation guide. |
+| `4` | Checks whether the main files and Python are present. |
+| `0` | Exits. |
 
-1. Review the files included in the project.
-2. Download a published build from **Releases** when one is available. If no release is listed, a packaged build has not yet been published here.
-3. Follow the setup instructions included with that build.
-4. Add your own provider API key in the local application settings.
-5. Select a supported model and test the provider connection.
+For screenshots-free, step-by-step instructions, see **[INSTALLATION.md](INSTALLATION.md)** or **[инструкцию на русском](INSTALLATION-RU.md)**.
 
-### API key safety
+## 📱 Android and iPhone
 
-- Never paste API keys into GitHub issues, discussions, screenshots, or source files.
-- Do not commit environment files or local configuration containing secrets.
-- Use keys with minimum permissions and spending limits.
-- Revoke and rotate a key immediately if it is exposed.
-- On shared computers, remember that browser-based builds may store settings locally.
+The `mobile` folder is a Progressive Web App (PWA), not a native APK or IPA. Publish the bundle contents to an HTTPS static host while preserving the `mobile/` and `assets/` paths. Then open the hosted mobile page:
 
-## Compatibility and provider support
+- **Android:** open the HTTPS page in Chrome → browser menu → **Install app** or **Add to Home screen**.
+- **iPhone:** open the HTTPS page in Safari → **Share** → **Add to Home Screen**.
 
-Provider compatibility is adapter-specific. Check the provider’s current API documentation, endpoint format, model identifier, authentication method, and rate limits. A model being listed as free does not guarantee quota, uptime, or unrestricted access.
+Full details: [mobile guide](nexaflow_bundle/mobile/INSTALL-MOBILE.txt) (inside the ZIP).
 
-## Documentation
+## 🔐 API keys and privacy
 
-- [Русская версия README](README-RU.md)
-- [Security policy](SECURITY.md)
-- [Contributing guide](CONTRIBUTING.md)
+- Never commit API keys, `.env` files, passwords, or private configuration.
+- Do not post API keys in issues, screenshots, or chat messages.
+- The mobile PWA stores its OpenRouter key in that browser’s `localStorage` and sends requests directly to OpenRouter. Use it only on a trusted personal device.
+- The mobile PWA is a separate companion client. It does not connect to Claude Desktop’s local MCP process or automatically share its saved settings.
+- Use provider-side spending limits. “Free” model listings do not guarantee quota, availability, or unlimited use.
 
-## Troubleshooting
+## ⚙️ Important limitations
+
+NexaFlow does not silently replace Claude’s own internal model. Routing and fallback apply only to requests that are sent through NexaFlow’s supported MCP/API workflow. Provider compatibility, model access, pricing, quotas, and rate limits depend on each provider and may change.
+
+## 🧰 Troubleshooting
+
+**The launcher says files are missing**
+- Extract the whole ZIP archive first.
+- Run `START-NEXAFLOW.cmd` from inside the extracted `nexaflow_bundle` folder. Do not move the CMD file away from the other folders.
+
+**The web app does not open or the page cannot be reached**
+- Install Python 3 and ensure the `py` launcher or `python` command is available.
+- Run the launcher again and choose option `1`.
+
+**The `.mcpb` file does not open**
+- Open Claude Desktop and use its extension installation flow, then select `NexaFlow-AI-Switch-Pro-1.6.0.mcpb` from the extracted bundle.
+- Make sure Claude Desktop is installed and up to date.
 
 **401 / Unauthorized**
-- Check that the API key belongs to the selected provider.
-- Confirm that the key is active and has access to the requested API.
-- Check the authentication format required by the provider.
-- Never share the key; provide only the redacted error and provider name.
+- Confirm the API key belongs to the selected provider and is active.
+- Check the provider’s required authentication format and account access.
+- Never share the key when requesting support; redact it from logs.
 
-**Model not found**
-- Verify the exact model ID in the provider’s current documentation.
-- Confirm that the model is enabled for your account and endpoint.
+## 🤝 Contributing
 
-**Rate limit / quota errors**
-- Check provider usage, billing, and rate limits. Switching models does not bypass account limits.
+Bug reports and tested improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Please state exactly which provider and environment you tested.
 
-## Contributing
+## 📄 License
 
-Bug reports, documentation improvements, and tested provider adapters are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+No license has been added yet. Until the repository owner publishes one, reuse and redistribution are not automatically permitted.
 
-## License
+<div align="center">
 
-No license has been added yet. Until a license is published, the repository is not granted an open-source license by default. Please contact the repository owner before redistributing or reusing the code.
+**Built to make multi-provider AI workflows easier to manage.**
+
+</div>
