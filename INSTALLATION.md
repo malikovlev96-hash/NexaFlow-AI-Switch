@@ -6,8 +6,8 @@ This guide matches the current repository layout. Download files from [GitHub Re
 
 From the latest published release, download:
 
-- `NexaFlow-AI-Switch-1.7.1-source.zip` — launcher, PWA, source and documentation.
-- `NexaFlow-AI-Switch-1.7.1.mcpb` — Claude Desktop extension package.
+- `NexaFlow-AI-Switch-1.7.2-source.zip` — launcher, PWA, source and documentation.
+- `NexaFlow-AI-Switch-1.7.2.mcpb` — Claude Desktop extension package.
 
 If no release is published yet, use **Code → Download ZIP** on the repository page. You can build the MCPB from source with `BUILD-MCPB.cmd`.
 
@@ -32,7 +32,7 @@ Choose option `4` to diagnose Python and port 8765.
 
 **Option A — prebuilt package**
 
-1. Download `NexaFlow-AI-Switch-1.7.1.mcpb` from Releases.
+1. Download `NexaFlow-AI-Switch-1.7.2.mcpb` from Releases.
 2. Open Claude Desktop. If double-clicking the file does not open the installer, use the extension installation screen available in your Claude Desktop version.
 3. Select the `.mcpb` file and confirm installation.
 4. Open extension settings and add an API key for at least one provider.
@@ -42,7 +42,7 @@ Choose option `4` to diagnose Python and port 8765.
 
 1. Install Python 3.
 2. Double-click `BUILD-MCPB.cmd` in the extracted project folder.
-3. After successful verification, the package is created at `dist/NexaFlow-AI-Switch-1.7.1.mcpb`.
+3. After successful verification, the package is created at `dist/NexaFlow-AI-Switch-1.7.2.mcpb`.
 4. Open that file with Claude Desktop and confirm installation.
 
 ## 4. Configure a provider
