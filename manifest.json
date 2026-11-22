@@ -343,5 +343,33 @@
     }
   },
   "icon": "icon.png",
-  "manifest_version": "0.3"
+  "manifest_version": "0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch.git"
+  },
+  "homepage": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch",
+  "support": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues",
+  "license": "MIT",
+  "tools_generated": true,
+  "privacy_policies": [
+    "https://x.ai/legal/privacy-policy",
+    "https://groq.com/privacy-policy/",
+    "https://policies.google.com/privacy",
+    "https://openrouter.ai/privacy",
+    "https://mistral.ai/terms/",
+    "https://www.cloudflare.com/privacypolicy/",
+    "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/",
+    "https://cohere.com/privacy",
+    "https://sambanova.ai/privacy-policy",
+    "https://z.ai/legal/privacy-policy",
+    "https://openai.com/policies/privacy-policy/",
+    "https://www.deepseek.com/privacy",
+    "https://cerebras.ai/privacy-policy",
+    "https://www.together.ai/privacy",
+    "https://fireworks.ai/privacy-policy",
+    "https://huggingface.co/privacy",
+    "https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement",
+    "https://www.perplexity.ai/hub/legal/privacy-policy"
+  ]
 }
