@@ -60,8 +60,8 @@
 
 | Файл | Для чего |
 |---|---|
-| `NexaFlow-AI-Switch-1.7.1.mcpb` | Установка MCP-расширения в Claude Desktop |
-| `NexaFlow-AI-Switch-1.7.1-source.zip` | Windows Launcher, PWA, исходный код и инструкции |
+| `NexaFlow-AI-Switch-1.7.2.mcpb` | Установка MCP-расширения в Claude Desktop |
+| `NexaFlow-AI-Switch-1.7.2-source.zip` | Windows Launcher, PWA, исходный код и инструкции |
 
 Если GitHub пишет, что релизов пока нет, нажми **Code → Download ZIP**, чтобы скачать текущий исходный код. Именованные файлы появятся после публикации релиза и завершения сборки GitHub Actions.
 
@@ -117,7 +117,7 @@
 npm test
 npm run check
 python tools/build_mcpb.py
-python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.1.mcpb
+python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.2.mcpb
 ```
 
 ## Документы
