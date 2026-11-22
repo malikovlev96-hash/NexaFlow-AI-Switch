@@ -1,97 +1,67 @@
-<div align="center">
+# NexaFlow AI Switch 1.7.0
 
-# ⚡ NexaFlow AI Switch
+NexaFlow is delivered as two distinct products:
 
-### Your AI providers. One smart routing workspace.
+1. **Claude Desktop MCP extension** (`dist/NexaFlow-AI-Switch-1.7.0.mcpb`) — an MCP tool server that routes requests only when Claude invokes its tools.
+2. **Mobile/Desktop PWA companion** (`mobile/`) — a browser app using the OpenRouter API directly.
 
-Configure models, connect supported providers, and use fallback workflows through a desktop bundle and mobile companion app.
+These products do **not** share credentials, history, or settings. The PWA is not a remote control for Claude Desktop and does not connect to the local MCP process.
 
-[🚀 Get the desktop bundle](NexaFlow-Desktop-Mobile-1.0.0.zip) · [📘 Russian guide](INSTALLATION-RU.md) · [📗 English guide](INSTALLATION.md) · [🐛 Report a bug](https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues)
+## Requirements
 
-![GitHub repo size](https://img.shields.io/github/repo-size/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge&color=6C5CE7) ![GitHub last commit](https://img.shields.io/github/last-commit/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge) ![GitHub issues](https://img.shields.io/github/issues/malikovlev96-hash/NexaFlow-AI-Switch?style=for-the-badge)
+- Claude Desktop with MCPB extension support.
+- Node.js 18+ for building/testing the MCP source; Claude Desktop uses the packaged Node runtime as configured by MCPB.
+- Python 3 on Windows only for the local static PWA preview.
 
-</div>
+## Build and test
 
----
+```bash
+npm test
+npm run check
+python tools/build_mcpb.py
+python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.0.mcpb
+```
 
-## ✨ What is NexaFlow?
+The MCPB is a ZIP container with `manifest.json`, `icon.png`, `server/index.js`, and `README.md`. Install it by opening the `.mcpb` file in Claude Desktop.
 
-NexaFlow AI Switch is a configurable AI routing project. It brings provider setup, model selection, and supported fallback workflows into a single project bundle.
+## Providers
 
-| Component | What it is for |
-|---|---|
-| **Windows launcher** | Opens the web companion, the Claude Desktop extension installer, and local checks. |
-| **Claude Desktop MCPB** | Installs the bundled MCP extension in Claude Desktop. |
-| **Mobile PWA** | Browser-based companion for the OpenRouter model catalog and chat. |
+The MCP server contains 18 configured provider integrations: xAI, Groq, Google Gemini, OpenRouter, Mistral, Cloudflare Workers AI, NVIDIA NIM, Cohere, SambaNova, Z.ai, OpenAI, DeepSeek, Cerebras, Together AI, Fireworks AI, Hugging Face, GitHub Models, and Perplexity.
 
-## 🚀 Install in 3 steps
+A provider integration means an endpoint adapter is present; it does **not** guarantee current account access, free quota, availability, or compatibility with every model. Bring your own API key. Model IDs and plan availability can change. Run `autoswitch_test_provider` for a minimal live test of one configured provider, or `autoswitch_test` for all configured providers (up to four concurrent checks). Tests may consume quota.
 
-1. **[Download the ZIP](NexaFlow-Desktop-Mobile-1.0.0.zip)** from this repository.
-2. Extract the complete ZIP archive. Do not run files from inside the ZIP preview.
-3. Open the extracted `nexaflow_bundle` folder and double-click `START-NEXAFLOW.cmd`.
+## Model catalogue and pricing
 
-Choose an action in the launcher:
+`autoswitch_models` reads the live OpenRouter model catalogue. It returns model ID, name, context length, provider namespace, listed input/output prices, and whether both listed prices are zero. Prices are in USD per token in the API response; the mobile UI displays an equivalent per-million-token figure. `autoswitch_estimate_cost` provides an approximate estimate.
 
-| Menu | Action |
-|---|---|
-| `1` | Starts the local mobile/desktop web interface. Requires Python 3 for the local web server. |
-| `2` | Opens `NexaFlow-AI-Switch-Pro-1.6.0.mcpb` to install the Claude Desktop extension. |
-| `3` | Opens the mobile installation guide. |
-| `4` | Checks whether the main files and Python are present. |
-| `0` | Exits. |
+This is not a full native catalogue for every upstream provider. A universal catalogue and reliable cross-provider pricing cannot be asserted without querying each provider's authenticated account-specific model/pricing endpoints. The `autoswitch_providers` tool returns official API-key and pricing links for the 18 configured integrations.
 
-For screenshots-free, step-by-step instructions, see **[INSTALLATION.md](INSTALLATION.md)** or **[инструкцию на русском](INSTALLATION-RU.md)**.
+## Failover and errors
 
-## 📱 Android and iPhone
+- Authentication, permission, missing-model, and invalid-request errors (400/401/403/404/422) stop automatic failover. Fix the key, account access, or model ID first.
+- Network/timeouts, 408/425, 429, and 5xx failures can trigger failover to the next configured provider.
+- Transient HTTP failures may be retried once. This may still incur provider-side processing in rare cases; monitor provider usage.
+- API keys are never included in status or diagnostic output.
 
-The `mobile` folder is a Progressive Web App (PWA), not a native APK or IPA. Publish the bundle contents to an HTTPS static host while preserving the `mobile/` and `assets/` paths. Then open the hosted mobile page:
+## Windows local PWA
 
-- **Android:** open the HTTPS page in Chrome → browser menu → **Install app** or **Add to Home screen**.
-- **iPhone:** open the HTTPS page in Safari → **Share** → **Add to Home Screen**.
+Run `START-NEXAFLOW.cmd`, choose **1** to start, **2** to stop, or **4** to diagnose Python/port 8765. The server binds only to `127.0.0.1`. The launcher probes the actual page before opening it, checks for a port conflict, and records its PID/logs under `%LOCALAPPDATA%\NexaFlow`.
 
-Full details: [mobile guide](nexaflow_bundle/mobile/INSTALL-MOBILE.txt) (inside the ZIP).
+## Mobile PWA
 
-## 🔐 API keys and privacy
+Host the project root on HTTPS, preserving the `mobile/` and `assets/` folders. Open `/mobile/` on Android Chrome or iOS Safari and install it to the home screen. The PWA uses OpenRouter only. Its API key is stored in `sessionStorage` for the current browser session; chat history and favorites are stored locally in browser storage. Do not use a shared device.
 
-- Never commit API keys, `.env` files, passwords, or private configuration.
-- Do not post API keys in issues, screenshots, or chat messages.
-- The mobile PWA stores its OpenRouter key in that browser’s `localStorage` and sends requests directly to OpenRouter. Use it only on a trusted personal device.
-- The mobile PWA is a separate companion client. It does not connect to Claude Desktop’s local MCP process or automatically share its saved settings.
-- Use provider-side spending limits. “Free” model listings do not guarantee quota, availability, or unlimited use.
+## Known limitations
 
-## ⚙️ Important limitations
+- The MCP extension cannot intercept Claude Desktop's built-in Claude model selection, subscription limits, or internal requests. It cannot automatically switch Claude's internal model to another Claude model. It only routes explicit MCP tool calls.
+- Claude Desktop owns the extension configuration UI. This project supplies provider/key/model fields through MCPB `user_config`; it cannot inject a custom first-run wizard into Claude Desktop's installer.
+- PWA and MCP settings/keys/history are not synchronized. Secure cross-device sync requires an authenticated backend and user-controlled deployment.
+- This release does not ship signed native Android APK or iOS IPA. The mobile client is a PWA. APK/IPA signing requires Android/iOS build pipelines and signing credentials.
+- The PWA currently supports OpenRouter, not all 18 MCP providers.
+- Streaming is available in the PWA for OpenRouter. MCP responses are returned as completed tool results; streaming MCP transport is not implemented here.
+- Image/audio/file multimodal inputs, universal usage-cost accounting, persistent budgets, and push notifications are not implemented. Provider pricing/usage schemas vary and must not be guessed.
+- No self-updater is installed. Releases are distributed as versioned MCPB/PWA bundles; use GitHub Releases or download a verified bundle manually.
 
-NexaFlow does not silently replace Claude’s own internal model. Routing and fallback apply only to requests that are sent through NexaFlow’s supported MCP/API workflow. Provider compatibility, model access, pricing, quotas, and rate limits depend on each provider and may change.
+## Security
 
-## 🧰 Troubleshooting
-
-**The launcher says files are missing**
-- Extract the whole ZIP archive first.
-- Run `START-NEXAFLOW.cmd` from inside the extracted `nexaflow_bundle` folder. Do not move the CMD file away from the other folders.
-
-**The web app does not open or the page cannot be reached**
-- Install Python 3 and ensure the `py` launcher or `python` command is available.
-- Run the launcher again and choose option `1`.
-
-**The `.mcpb` file does not open**
-- Open Claude Desktop and use its extension installation flow, then select `NexaFlow-AI-Switch-Pro-1.6.0.mcpb` from the extracted bundle.
-- Make sure Claude Desktop is installed and up to date.
-
-**401 / Unauthorized**
-- Confirm the API key belongs to the selected provider and is active.
-- Check the provider’s required authentication format and account access.
-- Never share the key when requesting support; redact it from logs.
-
-## 🤝 Contributing
-
-Bug reports and tested improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Please state exactly which provider and environment you tested.
-
-## 📄 License
-
-No license has been added yet. Until the repository owner publishes one, reuse and redistribution are not automatically permitted.
-
-<div align="center">
-
-**Built to make multi-provider AI workflows easier to manage.**
-
-</div>
+Never commit API keys. Claude Desktop stores sensitive MCPB configuration values as sensitive settings. The PWA key is session-scoped and sent directly to OpenRouter over HTTPS. Review `SECURITY.md` before deployment.

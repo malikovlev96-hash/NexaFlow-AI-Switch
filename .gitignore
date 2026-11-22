@@ -1,32 +1,9 @@
-# Secrets and local configuration
+node_modules/
+dist/*.mcpb
 .env
 .env.*
 !.env.example
-*.key
-*.pem
-secrets/
-config.local.*
-settings.local.*
-
-# Dependencies
-node_modules/
-.pnpm-store/
-vendor/
-
-# Build output
-dist/
-build/
-out/
-coverage/
-
-# Logs and temporary files
 *.log
-logs/
-tmp/
-temp/
-
-# OS and editor files
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
+__pycache__/

@@ -1,0 +1,26 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: npm test
+      - run: python tools/build_mcpb.py
+      - run: python tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.0.mcpb
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/NexaFlow-AI-Switch-1.7.0.mcpb
+          generate_release_notes: true

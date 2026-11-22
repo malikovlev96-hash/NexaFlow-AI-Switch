@@ -1,17 +1,8 @@
-# Security Policy
+# Security policy
 
-## Reporting a vulnerability
-
-Please do not report security vulnerabilities in public issues. Contact the repository owner privately through the GitHub profile: https://github.com/malikovlev96-hash
-
-Include a description, impact, safe reproduction steps, affected version, and possible mitigation. Never include real API keys, passwords, tokens, or personal data.
-
-## API key handling
-
-- Keep provider keys out of source control.
-- Use local secret storage or environment variables where available.
-- Redact credentials from logs and screenshots.
-- Rotate exposed credentials immediately.
-- Use provider-side spending limits and least-privilege keys.
-
-This policy does not imply that every integration or build has undergone a security audit.
+- Never commit API keys, access tokens, account IDs that grant access, or `.env` files.
+- Rotate any key accidentally exposed in a repository, log, screenshot, or chat.
+- The MCP extension receives keys through Claude Desktop's sensitive `user_config` fields. Diagnostic tools intentionally return only configured/not-configured status.
+- The PWA stores the OpenRouter key in sessionStorage and calls OpenRouter directly from the browser. Use only a trusted device and HTTPS hosting.
+- Do not use this PWA on shared/public devices. Clear browser session and local site data when retiring a device.
+- Report security issues privately to the repository maintainer; do not publish active credentials in an issue.

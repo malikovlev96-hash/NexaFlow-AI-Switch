@@ -1,0 +1,24 @@
+NEXAFLOW AI SWITCH — MOBILE PWA 1.7.0
+
+This is an installable Progressive Web App, not a signed native APK/IPA.
+
+HOSTING
+1. Host the project root over HTTPS, preserving both /mobile and /assets.
+2. Open https://your-host/mobile/ on Android Chrome or iPhone Safari.
+3. Android: browser menu > Install app / Add to Home screen.
+4. iPhone: Share > Add to Home Screen.
+
+FEATURES
+- Live OpenRouter model catalogue and listed input/output token prices.
+- Model search, zero-listed-price filter and favorites.
+- OpenRouter key validation using the authenticated key endpoint.
+- API key stored in sessionStorage for the current browser session.
+- Streaming chat, system prompt, temperature and output-token limit.
+- Searchable local chat history.
+
+LIMITATIONS
+- This PWA currently supports OpenRouter only. It is not the Claude Desktop MCP client.
+- No cross-device/Desktop sync is included.
+- Chat history and favorites remain in this browser's local storage. The API key is not stored in localStorage.
+- A zero-listed-price model is not a guarantee of free quota, uptime, or access.
+- Use HTTPS and a trusted personal device. Do not use shared/public devices.

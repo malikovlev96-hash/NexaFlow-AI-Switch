@@ -1,0 +1,347 @@
+{
+  "mcpb_version": "0.1",
+  "name": "nexaflow-ai-switch",
+  "display_name": "NexaFlow AI Switch Pro",
+  "version": "1.7.0",
+  "description": "NexaFlow AI Switch — MCP router with explicit failover, provider diagnostics and live OpenRouter model catalog.",
+  "long_description": "NexaFlow AI Switch is a local Claude Desktop MCP extension. It routes only requests explicitly sent to autoswitch_ask; it does not intercept or replace Claude Desktop internal model selection or subscription limits. The extension supports 18 configured provider integrations, but live access depends on valid user-supplied credentials, model availability, region and provider account terms. The OpenRouter model catalogue is live and includes listed input/output token prices; it is not a universal catalogue for all providers. API keys are configured in Claude Desktop extension settings and are never returned by tools.",
+  "author": {
+    "name": "AI AutoSwitch"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "XAI_API_KEY": "${user_config.xai_api_key}",
+        "XAI_MODEL": "${user_config.xai_model}",
+        "GROQ_API_KEY": "${user_config.groq_api_key}",
+        "GROQ_MODEL": "${user_config.groq_model}",
+        "GEMINI_API_KEY": "${user_config.gemini_api_key}",
+        "GEMINI_MODEL": "${user_config.gemini_model}",
+        "OPENROUTER_API_KEY": "${user_config.openrouter_api_key}",
+        "OPENROUTER_MODEL": "${user_config.openrouter_model}",
+        "MISTRAL_API_KEY": "${user_config.mistral_api_key}",
+        "MISTRAL_MODEL": "${user_config.mistral_model}",
+        "CLOUDFLARE_API_TOKEN": "${user_config.cloudflare_api_token}",
+        "CLOUDFLARE_ACCOUNT_ID": "${user_config.cloudflare_account_id}",
+        "CLOUDFLARE_MODEL": "${user_config.cloudflare_model}",
+        "NVIDIA_API_KEY": "${user_config.nvidia_api_key}",
+        "NVIDIA_MODEL": "${user_config.nvidia_model}",
+        "COHERE_API_KEY": "${user_config.cohere_api_key}",
+        "COHERE_MODEL": "${user_config.cohere_model}",
+        "SAMBANOVA_API_KEY": "${user_config.sambanova_api_key}",
+        "SAMBANOVA_MODEL": "${user_config.sambanova_model}",
+        "ZAI_API_KEY": "${user_config.zai_api_key}",
+        "ZAI_MODEL": "${user_config.zai_model}",
+        "PRIMARY_PROVIDER": "${user_config.primary_provider}",
+        "FALLBACK_ORDER": "${user_config.fallback_order}",
+        "OPENAI_API_KEY": "${user_config.openai_api_key}",
+        "OPENAI_MODEL": "${user_config.openai_model}",
+        "DEEPSEEK_API_KEY": "${user_config.deepseek_api_key}",
+        "DEEPSEEK_MODEL": "${user_config.deepseek_model}",
+        "CEREBRAS_API_KEY": "${user_config.cerebras_api_key}",
+        "CEREBRAS_MODEL": "${user_config.cerebras_model}",
+        "TOGETHER_API_KEY": "${user_config.together_api_key}",
+        "TOGETHER_MODEL": "${user_config.together_model}",
+        "FIREWORKS_API_KEY": "${user_config.fireworks_api_key}",
+        "FIREWORKS_MODEL": "${user_config.fireworks_model}",
+        "HUGGINGFACE_API_KEY": "${user_config.huggingface_api_key}",
+        "HUGGINGFACE_MODEL": "${user_config.huggingface_model}",
+        "GITHUB_TOKEN": "${user_config.github_token}",
+        "GITHUB_MODEL": "${user_config.github_model}",
+        "PERPLEXITY_API_KEY": "${user_config.perplexity_api_key}",
+        "PERPLEXITY_MODEL": "${user_config.perplexity_model}"
+      }
+    }
+  },
+  "user_config": {
+    "primary_provider": {
+      "type": "string",
+      "title": "Главный провайдер",
+      "description": "xai = Grok; для бесплатного старта выбери groq или gemini",
+      "default": "groq",
+      "required": true
+    },
+    "fallback_order": {
+      "type": "string",
+      "title": "Порядок резервных провайдеров",
+      "description": "Порядок через запятую: groq,gemini,openrouter,cerebras,deepseek,mistral,cloudflare,nvidia,cohere,sambanova,zai,together,fireworks,huggingface,github,perplexity,openai,xai",
+      "default": "gemini,openrouter,cerebras,deepseek,mistral,cloudflare,nvidia,cohere,sambanova,zai,together,fireworks,huggingface,github,perplexity,openai,xai",
+      "required": false
+    },
+    "xai_api_key": {
+      "type": "string",
+      "title": "xAI / Grok — API-ключ",
+      "description": "Получить: https://console.x.ai/ (API платный)",
+      "sensitive": true,
+      "required": false
+    },
+    "xai_model": {
+      "type": "string",
+      "title": "Grok — ID модели",
+      "description": "Укажи актуальный ID из xAI Console; например grok-4.1-fast",
+      "default": "grok-4.1-fast",
+      "required": false
+    },
+    "groq_api_key": {
+      "type": "string",
+      "title": "Groq — API-ключ",
+      "description": "Получить: https://console.groq.com/keys",
+      "sensitive": true,
+      "required": false
+    },
+    "groq_model": {
+      "type": "string",
+      "title": "Groq — ID модели",
+      "description": "Актуальный ID смотри в Groq Console; пример openai/gpt-oss-120b",
+      "default": "openai/gpt-oss-120b",
+      "required": false
+    },
+    "gemini_api_key": {
+      "type": "string",
+      "title": "Google Gemini — API-ключ",
+      "description": "Получить: https://aistudio.google.com/apikey",
+      "sensitive": true,
+      "required": false
+    },
+    "gemini_model": {
+      "type": "string",
+      "title": "Gemini — ID модели",
+      "description": "Актуальный ID смотри в AI Studio; пример gemini-2.5-flash",
+      "default": "gemini-2.5-flash",
+      "required": false
+    },
+    "openrouter_api_key": {
+      "type": "string",
+      "title": "OpenRouter — API-ключ",
+      "description": "Получить: https://openrouter.ai/keys; выбирай модели с :free",
+      "sensitive": true,
+      "required": false
+    },
+    "openrouter_model": {
+      "type": "string",
+      "title": "OpenRouter — ID модели",
+      "description": "Укажи актуальный ID модели с :free; можно использовать openrouter/free",
+      "default": "openrouter/free",
+      "required": false
+    },
+    "mistral_api_key": {
+      "type": "string",
+      "title": "Mistral — API-ключ",
+      "description": "Получить: https://console.mistral.ai/",
+      "sensitive": true,
+      "required": false
+    },
+    "mistral_model": {
+      "type": "string",
+      "title": "Mistral — ID модели",
+      "description": "Актуальный ID смотри в Mistral Console; пример mistral-small-latest",
+      "default": "mistral-small-latest",
+      "required": false
+    },
+    "cloudflare_api_token": {
+      "type": "string",
+      "title": "Cloudflare API Token",
+      "description": "Получить: https://dash.cloudflare.com/",
+      "sensitive": true,
+      "required": false
+    },
+    "cloudflare_account_id": {
+      "type": "string",
+      "title": "Cloudflare Account ID",
+      "description": "Account ID из панели Cloudflare",
+      "required": false
+    },
+    "cloudflare_model": {
+      "type": "string",
+      "title": "Cloudflare — ID модели",
+      "description": "Пример @cf/openai/gpt-oss-120b",
+      "default": "@cf/openai/gpt-oss-120b",
+      "required": false
+    },
+    "nvidia_api_key": {
+      "type": "string",
+      "title": "NVIDIA NIM — API-ключ",
+      "description": "Получить: https://build.nvidia.com/",
+      "sensitive": true,
+      "required": false
+    },
+    "nvidia_model": {
+      "type": "string",
+      "title": "NVIDIA — ID модели",
+      "description": "Укажи точный model ID из каталога NVIDIA NIM",
+      "default": "meta/llama-3.3-70b-instruct",
+      "required": false
+    },
+    "cohere_api_key": {
+      "type": "string",
+      "title": "Cohere — API-ключ",
+      "description": "Получить: https://dashboard.cohere.com/api-keys; trial ограничен",
+      "sensitive": true,
+      "required": false
+    },
+    "cohere_model": {
+      "type": "string",
+      "title": "Cohere — ID модели",
+      "description": "Актуальный ID смотри в Cohere dashboard",
+      "default": "command-r7b-12-2024",
+      "required": false
+    },
+    "sambanova_api_key": {
+      "type": "string",
+      "title": "SambaNova — API-ключ",
+      "description": "Получить: https://cloud.sambanova.ai/",
+      "sensitive": true,
+      "required": false
+    },
+    "sambanova_model": {
+      "type": "string",
+      "title": "SambaNova — ID модели",
+      "description": "Актуальный ID смотри в SambaNova Cloud",
+      "default": "Meta-Llama-3.3-70B-Instruct",
+      "required": false
+    },
+    "zai_api_key": {
+      "type": "string",
+      "title": "Z.ai — API-ключ",
+      "description": "Получить: https://z.ai/",
+      "sensitive": true,
+      "required": false
+    },
+    "zai_model": {
+      "type": "string",
+      "title": "Z.ai — ID модели",
+      "description": "Актуальный ID смотри в Z.ai Console",
+      "default": "glm-4.7-flash",
+      "required": false
+    },
+    "openai_api_key": {
+      "type": "string",
+      "title": "OpenAI — API-ключ",
+      "description": "Create key/token: https://platform.openai.com/api-keys",
+      "required": false,
+      "sensitive": true
+    },
+    "openai_model": {
+      "type": "string",
+      "title": "OpenAI — ID модели",
+      "description": "Example: gpt-4.1-mini",
+      "required": false,
+      "default": "gpt-4.1-mini"
+    },
+    "deepseek_api_key": {
+      "type": "string",
+      "title": "DeepSeek — API-ключ",
+      "description": "Create key/token: https://platform.deepseek.com/api_keys",
+      "required": false,
+      "sensitive": true
+    },
+    "deepseek_model": {
+      "type": "string",
+      "title": "DeepSeek — ID модели",
+      "description": "Example: deepseek-chat",
+      "required": false,
+      "default": "deepseek-chat"
+    },
+    "cerebras_api_key": {
+      "type": "string",
+      "title": "Cerebras — API-ключ",
+      "description": "Create key/token: https://cloud.cerebras.ai/",
+      "required": false,
+      "sensitive": true
+    },
+    "cerebras_model": {
+      "type": "string",
+      "title": "Cerebras — ID модели",
+      "description": "Example: llama-3.3-70b",
+      "required": false,
+      "default": "llama-3.3-70b"
+    },
+    "together_api_key": {
+      "type": "string",
+      "title": "Together AI — API-ключ",
+      "description": "Create key/token: https://api.together.ai/",
+      "required": false,
+      "sensitive": true
+    },
+    "together_model": {
+      "type": "string",
+      "title": "Together AI — ID модели",
+      "description": "Enter exact model ID from Together dashboard",
+      "required": false,
+      "default": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    },
+    "fireworks_api_key": {
+      "type": "string",
+      "title": "Fireworks AI — API-ключ",
+      "description": "Create key/token: https://fireworks.ai/",
+      "required": false,
+      "sensitive": true
+    },
+    "fireworks_model": {
+      "type": "string",
+      "title": "Fireworks AI — ID модели",
+      "description": "Enter exact model ID from Fireworks catalog",
+      "required": false,
+      "default": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    "huggingface_api_key": {
+      "type": "string",
+      "title": "Hugging Face API Token",
+      "description": "Create key/token: https://huggingface.co/settings/tokens",
+      "required": false,
+      "sensitive": true
+    },
+    "huggingface_model": {
+      "type": "string",
+      "title": "Hugging Face — ID модели",
+      "description": "Enter a model supported by the HF Inference router",
+      "required": false,
+      "default": "meta-llama/Llama-3.3-70B-Instruct"
+    },
+    "github_token": {
+      "type": "string",
+      "title": "GitHub Models Token",
+      "description": "Create a token with GitHub Models access: https://github.com/marketplace/models",
+      "required": false,
+      "sensitive": true
+    },
+    "github_model": {
+      "type": "string",
+      "title": "GitHub Models — ID модели",
+      "description": "Example: openai/gpt-4.1-mini",
+      "required": false,
+      "default": "openai/gpt-4.1-mini"
+    },
+    "perplexity_api_key": {
+      "type": "string",
+      "title": "Perplexity — API-ключ",
+      "description": "Create key/token: https://www.perplexity.ai/settings/api",
+      "required": false,
+      "sensitive": true
+    },
+    "perplexity_model": {
+      "type": "string",
+      "title": "Perplexity — ID модели",
+      "description": "Example: sonar",
+      "required": false,
+      "default": "sonar"
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "icon": "icon.png"
+}
