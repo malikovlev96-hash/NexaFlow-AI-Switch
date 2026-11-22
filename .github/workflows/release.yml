@@ -42,6 +42,9 @@ jobs:
           fi
           echo "version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
 
+      - name: Validate MCPB manifest with official Anthropic CLI
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
+
       - name: Run tests
         run: npm test
 
