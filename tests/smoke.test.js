@@ -29,7 +29,7 @@ test('MCP server starts and speaks JSON-RPC', async () => {
   assert.equal(exitCode, 0, stderr);
   const replies = stdout.trim().split(/\r?\n/).map(line => JSON.parse(line));
   assert.equal(replies.length, 3);
-  assert.equal(replies[0].result.serverInfo.version, '1.7.0');
+  assert.equal(replies[0].result.serverInfo.version, JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8')).version);
   const names = replies[1].result.tools.map(tool => tool.name);
   assert.ok(names.includes('autoswitch_test_provider'));
   assert.ok(names.includes('autoswitch_models'));
@@ -40,7 +40,7 @@ test('MCP server starts and speaks JSON-RPC', async () => {
 test('manifest JSON and MCPB entry point are valid', () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
   assert.equal(manifest.server.entry_point, 'server/index.js');
-  assert.equal(manifest.version, '1.7.0');
+  assert.equal(manifest.version, JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version);
   assert.equal(manifest.server.type, 'node');
 });
 
