@@ -23,4 +23,4 @@ jobs:
       - name: Build MCPB
         run: python3 tools/build_mcpb.py
       - name: Verify archive
-        run: python3 tools/verify_mcpb.py dist/NexaFlow-AI-Switch-1.7.0.mcpb
+        run: python3 tools/verify_mcpb.py
