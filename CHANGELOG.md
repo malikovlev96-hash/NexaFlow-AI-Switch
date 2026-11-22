@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.2 — MCPB installation compatibility fix
+
+- Corrected the extension manifest to the official MCPB schema field `manifest_version: "0.3"`; removed the unsupported `mcpb_version` field.
+- Strengthened archive verification and CI checks to prevent publishing invalid manifests.
+- Releases can now only be triggered by matching version tags.
+
 ## 1.7.1 — 2026-11-22
 
 - Premium visual refresh for the mobile PWA while preserving its existing JavaScript behavior and element IDs.

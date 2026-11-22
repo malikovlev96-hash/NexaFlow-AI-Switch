@@ -11,6 +11,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
       - name: Validate JavaScript
         run: node --check server/index.js
       - name: Validate JSON manifests
@@ -18,9 +21,18 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('mobile/manifest.webmanifest','utf8'))"
           node -e "JSON.parse(require('fs').readFileSync('package.json','utf8'))"
+      - name: Validate MCPB manifest with official Anthropic CLI
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
       - name: Run tests
         run: npm test
       - name: Build MCPB
         run: python3 tools/build_mcpb.py
       - name: Verify archive
         run: python3 tools/verify_mcpb.py
+      - name: Upload test MCPB package
+        uses: actions/upload-artifact@v4
+        with:
+          name: NexaFlow-AI-Switch-1.7.2-test
+          path: dist/NexaFlow-AI-Switch-1.7.2.mcpb
+          if-no-files-found: error
+          retention-days: 7

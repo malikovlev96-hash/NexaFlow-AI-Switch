@@ -2,7 +2,7 @@
 'use strict';
 // AI AutoSwitch MCP server. Node.js 18+, no third-party dependencies.
 const readline = require('node:readline');
-const VERSION = '1.7.1';
+const VERSION = '1.7.2';
 const DEFAULT_TIMEOUT_MS = 30000;
 const clean = (v) => typeof v === 'string' ? v.trim() : '';
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));

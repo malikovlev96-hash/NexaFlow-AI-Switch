@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -34,13 +33,17 @@ jobs:
           if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
             RELEASE_VERSION="${GITHUB_REF_NAME#v}"
           else
-            RELEASE_VERSION="$SOURCE_VERSION"
+            echo "Release workflow must be started by pushing a version tag."
+            exit 1
           fi
           if [[ "$RELEASE_VERSION" != "$SOURCE_VERSION" ]]; then
             echo "Tag version $RELEASE_VERSION does not match package.json $SOURCE_VERSION"
             exit 1
           fi
           echo "version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Validate MCPB manifest with official Anthropic CLI
+        run: npx --yes @anthropic-ai/mcpb@2.1.2 validate manifest.json
 
       - name: Run tests
         run: npm test

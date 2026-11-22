@@ -1,8 +1,7 @@
 {
-  "mcpb_version": "0.1",
   "name": "nexaflow-ai-switch",
   "display_name": "NexaFlow AI Switch Pro",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "NexaFlow AI Switch — MCP router with explicit failover, provider diagnostics and live OpenRouter model catalog.",
   "long_description": "NexaFlow AI Switch is a local Claude Desktop MCP extension. It routes only requests explicitly sent to autoswitch_ask; it does not intercept or replace Claude Desktop internal model selection or subscription limits. The extension supports 18 configured provider integrations, but live access depends on valid user-supplied credentials, model availability, region and provider account terms. The OpenRouter model catalogue is live and includes listed input/output token prices; it is not a universal catalogue for all providers. API keys are configured in Claude Desktop extension settings and are never returned by tools.",
   "author": {
@@ -343,5 +342,34 @@
       "node": ">=18.0.0"
     }
   },
-  "icon": "icon.png"
+  "icon": "icon.png",
+  "manifest_version": "0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch.git"
+  },
+  "homepage": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch",
+  "support": "https://github.com/malikovlev96-hash/NexaFlow-AI-Switch/issues",
+  "license": "MIT",
+  "tools_generated": true,
+  "privacy_policies": [
+    "https://x.ai/legal/privacy-policy",
+    "https://groq.com/privacy-policy/",
+    "https://policies.google.com/privacy",
+    "https://openrouter.ai/privacy",
+    "https://mistral.ai/terms/",
+    "https://www.cloudflare.com/privacypolicy/",
+    "https://www.nvidia.com/en-us/about-nvidia/privacy-policy/",
+    "https://cohere.com/privacy",
+    "https://sambanova.ai/privacy-policy",
+    "https://z.ai/legal/privacy-policy",
+    "https://openai.com/policies/privacy-policy/",
+    "https://www.deepseek.com/privacy",
+    "https://cerebras.ai/privacy-policy",
+    "https://www.together.ai/privacy",
+    "https://fireworks.ai/privacy-policy",
+    "https://huggingface.co/privacy",
+    "https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement",
+    "https://www.perplexity.ai/hub/legal/privacy-policy"
+  ]
 }
